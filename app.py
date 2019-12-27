@@ -67,7 +67,7 @@ def handle_message(event):
         for cls in cls_list:
             _message = TextSendMessage(text=cls)	#reply course
             line_bot_api.reply_message(event.reply_token, _message)
-#            line_bot_api.push_message(event.source.user_id, TextSendMessage(text='123'))
+            line_bot_api.push_message(event.source.user_id, TextSendMessage(text='123'))
     elif '誠品' in _token[0] or '書單' in _token[0]:
         bookls = find_bookls(_token[1])
         _message = TextSendMessage(text=bookls)	#reply course
@@ -99,7 +99,7 @@ def find_bookls(kw):
     return ans
 
 def loadPMJson():
-    with urllib.request.urlopen("http://opendata2.epa.gov.tw/AQX.json") as url:
+    with urllib.request.urlopen("http://datacenter.taichung.gov.tw/swagger/OpenData/150c60a1-bb80-4136-b338-8fa50e82c3ca") as url:
         data = json.loads(url.read().decode())
         for ele in data:
             pm_site[ele['SiteName']] = ele['PM2.5']
@@ -121,7 +121,7 @@ def getCls(cls_prefix):
         sub_url = 'https://course.thu.edu.tw' + cls_info.find('a')['href']
         ret_cls.append(cls_name + " " + sub_url)
         break
-#         ret_cls = ret_cls + sub_url + "\n"
+         ret_cls = ret_cls + sub_url + "\n"
 
     return ret_cls
         
